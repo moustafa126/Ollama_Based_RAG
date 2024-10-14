@@ -3,7 +3,7 @@
 This project implements a Retrieval Augmented Generation (RAG) system using the Ollama model and LangChain. The application allows users to upload a PDF document, process it by splitting it into chunks, store the chunks in a FAISS vector database, and answer user queries based on the context retrieved from the document. Streamlit is used for the web interface, facilitating easy interaction with the RAG system.
 
 ## Ollama Model
-![Ollama model Logo](https://www.google.com/url?sa=i&url=https%3A%2F%2Fmedium.com%2F%40mauryaanoop3%2Funleashing-structured-responses-functional-calling-with-langchain-ollama-and-phi-3-part-3-720b34203778&psig=AOvVaw26evGzbh6YNOB0n-i-azL5&ust=1729006999545000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCLCrjpKbjokDFQAAAAAdAAAAABAE)
+![Ollama model Logo](https://ollama.com/public/assets/c889cc0d-cb83-4c46-a98e-0d0e273151b9/42f6b28d-9117-48cd-ac0d-44baaf5c178e.png)
 
 ## 🚀 Streamlit Web Application
 
