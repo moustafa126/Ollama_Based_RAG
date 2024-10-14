@@ -76,7 +76,10 @@ Experience the power of our sentiment analysis model through our interactive web
 ├──requirements.txt
 ├──.gitignore
 ├──README.md
+```
 
 Developed with ❤️ by Venkat Sai Subash
 
 [LinkedIn](https://www.linkedin.com/in/venkat-sai-subash-panchakarla-b166ba23a/) 👨‍💼
+
+
