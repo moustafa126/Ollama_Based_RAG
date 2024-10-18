@@ -17,11 +17,6 @@ Experience the power of our sentiment analysis model through our interactive web
   </a>
 </p>
 
-<p align="center">
-  <a href="https://amazon-alexa-sentiment-analysis-dfh55obrkh83nwut9kyfhn.streamlit.app/">
-    <img src="https://static.streamlit.io/badges/streamlit_badge_black_white.svg" alt="Streamlit App">
-  </a>
-</p>
 
 
 ## Features
