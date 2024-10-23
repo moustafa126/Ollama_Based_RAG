@@ -6,7 +6,6 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 import streamlit as st
 from langchain.prompts import PromptTemplate
-from langchain.output_parsers import StrOutputParser
 from langchain.runnables import RunnablePassthrough
 
 ## Application Title
@@ -17,9 +16,6 @@ model = ChatOllama(model="llama3")  # Using LLaMA model for the chatbot
 
 ## Defining the prompt template for answering questions
 prompt = PromptTemplate.from_template("Answer the question based on the given context. \n Question: {question}\n Context: {context}")
-
-# Defining the parser
-parser = StrOutputParser()
 
 # Defining a function to read the contents inside a PDF file
 def read_pdf(file):
@@ -78,14 +74,12 @@ if entire_docs:
     if user_input:
         results = retrieve_query(user_input)
 
-        # Defining the chain
-        chain = {
-            "question": RunnablePassthrough(),
-            "context": RunnablePassthrough()
-        } | prompt | model | parser
-
-        # Invoking the chain by passing the user's input and context retrieved from the vector db
+        # Directly process the final result without needing a parser
+        chain = {"question": RunnablePassthrough(), "context": RunnablePassthrough()} | prompt | model
+        
+        # Invoke the chain without the parser
         final = chain.invoke({"question": user_input, "context": results})
-
+        
         # Finally returning the response
         st.write("The Response is: \n", final)
+
