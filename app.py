@@ -6,7 +6,6 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 import streamlit as st
 from langchain.prompts import PromptTemplate
-from langchain.runnables import RunnablePassthrough
 
 ## Application Title
 st.title("OpenAI Embeddings with LLaMA Chatbot RAG Application")
@@ -74,12 +73,13 @@ if entire_docs:
     if user_input:
         results = retrieve_query(user_input)
 
-        # Directly process the final result without needing a parser
-        chain = {"question": RunnablePassthrough(), "context": RunnablePassthrough()} | prompt | model
+        # Modify the chain to remove RunnablePassthrough
+        chain = {"question": user_input, "context": results} | prompt | model
         
-        # Invoke the chain without the parser
+        # Invoke the chain directly
         final = chain.invoke({"question": user_input, "context": results})
         
-        # Finally returning the response
+        # Return the response
         st.write("The Response is: \n", final)
+
 
