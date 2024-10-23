@@ -2,13 +2,14 @@
 from langchain_ollama.chat_models import ChatOllama
 from PyPDF2 import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings
+from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 import streamlit as st
 from langchain.prompts import PromptTemplate
+# from langchain.output_parsers import StrOutputParser  # Remove this since it causes errors
 
 ## Application Title
-st.title("OpenAI Embeddings with LLaMA Chatbot RAG Application")
+st.title("HuggingFace Embeddings with LLaMA Chatbot RAG Application")
 
 ## Defining the LLaMA Model (chatbot)
 model = ChatOllama(model="llama3")  # Using LLaMA model for the chatbot
@@ -16,7 +17,7 @@ model = ChatOllama(model="llama3")  # Using LLaMA model for the chatbot
 ## Defining the prompt template for answering questions
 prompt = PromptTemplate.from_template("Answer the question based on the given context. \n Question: {question}\n Context: {context}")
 
-# Defining a function to read the contents inside a PDF file
+# Function to read the contents inside a PDF file
 def read_pdf(file):
     text = ""
     try:
@@ -54,8 +55,8 @@ if uploaded_file is not None:
     ## Loading.. displayed on UI
     st.subheader("Loading....")
 
-# Defining the vector embeddings using OpenAI Embeddings
-embeddings = OpenAIEmbeddings()
+# Using HuggingFace Embeddings (which doesn't require an API key)
+embeddings = HuggingFaceEmbeddings()
 
 # Creating the vector database using the embeddings
 if entire_docs:
@@ -73,13 +74,8 @@ if entire_docs:
     if user_input:
         results = retrieve_query(user_input)
 
-        # Modify the chain to remove RunnablePassthrough
-        chain = {"question": user_input, "context": results} | prompt | model
-        
-        # Invoke the chain directly
-        final = chain.invoke({"question": user_input, "context": results})
-        
-        # Return the response
+        # Chain without RunnablePassthrough or a parser
+        final = model({"question": user_input, "context": results})
+
+        # Finally returning the response
         st.write("The Response is: \n", final)
-
-
