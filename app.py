@@ -6,7 +6,6 @@ from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 import streamlit as st
 from langchain.prompts import PromptTemplate
-# from langchain.output_parsers import StrOutputParser  # Remove this since it causes errors
 
 ## Application Title
 st.title("HuggingFace Embeddings with LLaMA Chatbot RAG Application")
@@ -74,8 +73,8 @@ if entire_docs:
     if user_input:
         results = retrieve_query(user_input)
 
-        # Chain without RunnablePassthrough or a parser
-        final = model({"question": user_input, "context": results})
+        # Properly formatting the input for the LLaMA model
+        final = model.generate({"question": user_input, "context": results})
 
         # Finally returning the response
         st.write("The Response is: \n", final)
